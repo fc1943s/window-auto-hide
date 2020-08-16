@@ -7,11 +7,11 @@ use windows_win::winapi::um::winuser::{SW_HIDE};
 
 #[derive(serde::Deserialize)]
 pub struct Config {
-    class_name: String
+    window_class_name: String
 }
 
-fn hide_window(class_name: &String) {
-    let search_result = window::get_by_class(class_name, None).unwrap();
+fn hide_window(window_class_name: &String) {
+    let search_result = window::get_by_class(window_class_name, None).unwrap();
 
     for window_hwnd in search_result {
         println!("hiding handle {:?}", window_hwnd);
@@ -29,8 +29,8 @@ fn main() {
     let timer = Timer::new();
     let ticks = timer.interval_ms(interval).iter();
 
-    hide_window(&config.class_name);
+    hide_window(&config.window_class_name);
     for _ in ticks {
-        hide_window(&config.class_name);
+        hide_window(&config.window_class_name);
     }
 }
